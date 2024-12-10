@@ -74,7 +74,7 @@ CREATE TABLE SystemService.DefaultConfiguration (
     Id VARCHAR(50),
     DefaultPage INT,
     DefaultGivenDate DATE,
-    PermittedFileTypes VARCHAR(MAX),
+    PermittedFileTypes VARCHAR(100),
     CreatedAt DATE DEFAULT GETDATE(),
     SPSOId VARCHAR(50),
     CONSTRAINT PK_DefaultConfiguration_Id PRIMARY KEY (Id),
