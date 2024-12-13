@@ -2,11 +2,6 @@
 
 INSERT INTO InfoUser.Customer (Id, PhoneNumber, Email, Password, LastLogin, FamilyName, GivenName, Role, StudentCode, CurrentPage)
 VALUES 
-('C001', '0124000001', 'customer1@example.com', 'password123', '2024-02-12', 'Nguyen', 'Customer1', 'Customer', 'ST001', 0),
-('C002', '0124000002', 'customer2@example.com', 'password123', '2024-07-29', 'Pham', 'Customer2', 'Customer', 'ST002', 0),
-('C003', '0124000003', 'customer3@example.com', 'password123', '2024-10-29', 'Pham', 'Customer3', 'Customer', 'ST003', 0),
-('C004', '0124000004', 'customer4@example.com', 'password123', '2024-02-02', 'Le', 'Customer4', 'Customer', 'ST004', 0),
-('C005', '0124000005', 'customer5@example.com', 'password123', '2024-02-20', 'Vu', 'Customer5', 'Customer', 'ST005', 0),
 ('C006', '0124000006', 'customer6@example.com', 'password123', '2024-10-06', 'Nguyen', 'Customer6', 'Customer', 'ST006', 0),
 ('C007', '0124000007', 'customer7@example.com', 'password123', '2024-07-26', 'Phan', 'Customer7', 'Customer', 'ST007', 0),
 ('C008', '0124000008', 'customer8@example.com', 'password123', '2024-05-26', 'Do', 'Customer8', 'Customer', 'ST008', 0),

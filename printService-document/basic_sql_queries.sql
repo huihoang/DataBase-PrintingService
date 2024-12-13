@@ -1,6 +1,7 @@
 -- SQL Queries for PrintService.Document Table
 USE PrintingServices;
 GO
+
 -- 1. Fetch all documents for a specific customer
 SELECT *
 FROM PrintService.Document
@@ -9,7 +10,7 @@ WHERE CustomerId = 'C001';
 -- 2. Fetch documents created within a specific date range
 SELECT *
 FROM PrintService.Document
-WHERE CreatedAt BETWEEN '2024-12-01' AND '2024-12-31';
+WHERE CreatedAt BETWEEN '2024-12-01 00:00:00' AND '2024-12-31 23:59:59';
 
 -- 3. Fetch documents with specific file types
 SELECT *
@@ -37,25 +38,26 @@ SELECT *
 FROM PrintService.Document
 ORDER BY CreatedAt DESC;
 
--- 8. Count the total documents and average file count per customer
-SELECT COUNT(*) AS TotalDocuments, AVG(FileCount) AS AvgDocumentsPerCustomer
-FROM (
-    SELECT CustomerId, COUNT(*) AS FileCount
-    FROM PrintService.Document
-    GROUP BY CustomerId
-) AS DocumentStats;
+-- 8. Count the total documents and average number of pages per customer
+SELECT COUNT(*) AS TotalDocuments, AVG(NumOfPage) AS AvgPagesPerDocument
+FROM PrintService.Document;
 
 -- 9. Fetch the earliest and latest documents created by each customer
 SELECT CustomerId, MIN(CreatedAt) AS EarliestDocument, MAX(CreatedAt) AS LatestDocument
 FROM PrintService.Document
 GROUP BY CustomerId;
 
--- 10. Fetch documents uploaded by multiple customers (specific IDs)
-SELECT *
-FROM PrintService.Document
-WHERE CustomerId IN ('C001', 'C002', 'C003');
-
--- 11. Fetch the total number of documents grouped by file type
+-- 10. Fetch the total number of documents grouped by file type
 SELECT FileType, COUNT(*) AS TotalDocuments
 FROM PrintService.Document
 GROUP BY FileType;
+
+-- 11. Fetch documents with more than a specific number of pages
+SELECT *
+FROM PrintService.Document
+WHERE NumOfPage > 100;
+
+-- 12. Fetch the total number of pages uploaded by each customer
+SELECT CustomerId, SUM(NumOfPage) AS TotalPages
+FROM PrintService.Document
+GROUP BY CustomerId;

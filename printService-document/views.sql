@@ -1,81 +1,110 @@
--- SQL Views for Statistical Analysis of Document Data
+-- SQL Views for Statistical Analysis of Document Data with NumOfPage
 
 USE PrintingServices;
 GO
 
--- 1. Total Documents by Customer
-CREATE OR ALTER VIEW vwDocumentCountByCustomer AS
-SELECT CustomerId, COUNT(*) AS TotalDocuments
+-- 1. Total Documents and Total Pages by Customer
+CREATE OR ALTER VIEW vwDocumentAndPageCountByCustomer AS
+SELECT 
+    CustomerId, 
+    COUNT(*) AS TotalDocuments, 
+    SUM(NumOfPage) AS TotalPages
 FROM PrintService.Document
 GROUP BY CustomerId;
 
--- Test vwDocumentCountByCustomer
-SELECT * FROM vwDocumentCountByCustomer;
+-- Test vwDocumentAndPageCountByCustomer
+SELECT * FROM vwDocumentAndPageCountByCustomer;
 
--- 2. Documents by FileType
-CREATE OR ALTER VIEW vwDocumentByFileType AS
-SELECT FileType, COUNT(*) AS TotalDocuments
+-- 2. Documents and Pages by FileType
+CREATE OR ALTER VIEW vwDocumentAndPageByFileType AS
+SELECT 
+    FileType, 
+    COUNT(*) AS TotalDocuments, 
+    SUM(NumOfPage) AS TotalPages
 FROM PrintService.Document
 GROUP BY FileType;
 
--- Test vwDocumentByFileType
-SELECT * FROM vwDocumentByFileType;
+-- Test vwDocumentAndPageByFileType
+SELECT * FROM vwDocumentAndPageByFileType;
 
--- 3. Documents Created Per Day
-CREATE OR ALTER VIEW vwDailyDocumentCreation AS
-SELECT CAST(CreatedAt AS DATE) AS CreationDate, COUNT(*) AS TotalDocuments
+-- 3. Documents and Pages Created Per Day
+CREATE OR ALTER VIEW vwDailyDocumentAndPageCreation AS
+SELECT 
+    CAST(CreatedAt AS DATE) AS CreationDate, 
+    COUNT(*) AS TotalDocuments, 
+    SUM(NumOfPage) AS TotalPages
 FROM PrintService.Document
 GROUP BY CAST(CreatedAt AS DATE);
 
--- Test vwDailyDocumentCreation
-SELECT * FROM vwDailyDocumentCreation;
+-- Test vwDailyDocumentAndPageCreation
+SELECT * FROM vwDailyDocumentAndPageCreation;
 
--- 4. Documents Linked to Print Logs
-CREATE OR ALTER VIEW vwDocumentsLinkedToPrintLogs AS
-SELECT PrintLogId, COUNT(*) AS TotalDocuments
+-- 4. Documents and Pages Linked to Print Logs
+CREATE OR ALTER VIEW vwDocumentsAndPagesLinkedToPrintLogs AS
+SELECT 
+    PrintLogId, 
+    COUNT(*) AS TotalDocuments, 
+    SUM(NumOfPage) AS TotalPages
 FROM PrintService.Document
 WHERE PrintLogId IS NOT NULL
 GROUP BY PrintLogId;
 
--- Test vwDocumentsLinkedToPrintLogs
-SELECT * FROM vwDocumentsLinkedToPrintLogs;
+-- Test vwDocumentsAndPagesLinkedToPrintLogs
+SELECT * FROM vwDocumentsAndPagesLinkedToPrintLogs;
 
--- 5. Top Customers by Document Count
-CREATE OR ALTER VIEW vwTopCustomersByDocument AS
-SELECT TOP 10 CustomerId, COUNT(*) AS TotalDocuments
+-- 5. Top Customers by Total Documents and Pages
+CREATE OR ALTER VIEW vwTopCustomersByDocumentAndPage AS
+SELECT TOP 10 
+    CustomerId, 
+    COUNT(*) AS TotalDocuments, 
+    SUM(NumOfPage) AS TotalPages
 FROM PrintService.Document
 GROUP BY CustomerId
-ORDER BY TotalDocuments DESC;
+ORDER BY TotalDocuments DESC, TotalPages DESC;
 
--- Test vwTopCustomersByDocument
-SELECT * FROM vwTopCustomersByDocument;
+-- Test vwTopCustomersByDocumentAndPage
+SELECT * FROM vwTopCustomersByDocumentAndPage;
 
--- 6. Average Documents Per Customer
-CREATE OR ALTER VIEW vwAverageDocumentsPerCustomer AS
-SELECT AVG(DocumentCount) AS AverageDocuments
+-- 6. Average Pages Per Document and Per Customer
+CREATE OR ALTER VIEW vwAveragePagesPerDocumentAndCustomer AS
+SELECT 
+    (SELECT AVG(NumOfPage) FROM PrintService.Document) AS AveragePagesPerDocument,
+    AVG(CustomerPageStats.TotalPages) AS AveragePagesPerCustomer
 FROM (
-    SELECT CustomerId, COUNT(*) AS DocumentCount
+    SELECT CustomerId, SUM(NumOfPage) AS TotalPages
     FROM PrintService.Document
     GROUP BY CustomerId
-) AS CustomerDocumentCounts;
+) AS CustomerPageStats;
 
--- Test vwAverageDocumentsPerCustomer
-SELECT * FROM vwAverageDocumentsPerCustomer;
+-- Test vwAveragePagesPerDocumentAndCustomer
+SELECT * FROM vwAveragePagesPerDocumentAndCustomer;
 
--- 7. Recent Documents Created
-CREATE OR ALTER VIEW vwRecentDocuments AS
-SELECT TOP 20 Id, FileName, FileType, CreatedAt, CustomerId
+-- 7. Recent Documents with Total Pages
+CREATE OR ALTER VIEW vwRecentDocumentsWithPages AS
+SELECT TOP 20 
+    Id, 
+    FileName, 
+    FileType, 
+    CreatedAt, 
+    CustomerId, 
+    NumOfPage
 FROM PrintService.Document
 ORDER BY CreatedAt DESC;
 
--- Test vwRecentDocuments
-SELECT * FROM vwRecentDocuments;
+-- Test vwRecentDocumentsWithPages
+SELECT * FROM vwRecentDocumentsWithPages;
 
--- 8. Documents Without Print Logs
-CREATE OR ALTER VIEW vwDocumentsWithoutPrintLogs AS
-SELECT *
+-- 8. Documents Without Print Logs Including Pages
+CREATE OR ALTER VIEW vwDocumentsWithoutPrintLogsWithPages AS
+SELECT 
+    Id, 
+    FileName, 
+    FileType, 
+    CreatedAt, 
+    NumOfPage, 
+    CustomerId
 FROM PrintService.Document
 WHERE PrintLogId IS NULL;
 
--- Test vwDocumentsWithoutPrintLogs
-SELECT * FROM vwDocumentsWithoutPrintLogs;
+-- Test vwDocumentsWithoutPrintLogsWithPages
+SELECT * FROM vwDocumentsWithoutPrintLogsWithPages;

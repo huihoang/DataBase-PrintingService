@@ -135,6 +135,7 @@ CREATE TABLE PrintService.Document (
     FileName VARCHAR(255),
     FileType VARCHAR(50),
     PrintLogId INT NULL,
+    NumOfPage INT,
     CustomerId VARCHAR(50),
     CONSTRAINT PK_Document_Id PRIMARY KEY (Id),
     CONSTRAINT FK_Document_PrintServiceLogId FOREIGN KEY (PrintLogId) REFERENCES PrintService.PrintServiceLog(Id),
@@ -226,13 +227,13 @@ VALUES
 ('2024-12-05 14:00:00', 'Pending', 'One-Sided', 4, 'A4', 40, 'C005', 5);
 
 -- Thêm dữ liệu vào bảng Document
-INSERT INTO PrintService.Document (Id, FileName, FileType, PrintLogId, CustomerId)
+INSERT INTO PrintService.Document (Id, FileName, FileType, PrintLogId, NumOfPage, CustomerId)
 VALUES 
-('D001', 'Doc1.pdf', 'PDF', 1, 'C001'),
-('D002', 'Doc2.docx', 'DOCX', 2, 'C002'),
-('D003', 'Doc3.jpg', 'JPG', 3, 'C003'),
-('D004', 'Doc4.pdf', 'PDF', 4, 'C004'),
-('D005', 'Doc5.docx', 'DOCX', 5, 'C005');
+('D001', 'Doc1', 'PDF', 1, 20, 'C001'),
+('D002', 'Doc2', 'DOCX', 2, 30, 'C002'),
+('D003', 'Doc3', 'JPG', 3, 40, 'C003'),
+('D004', 'Doc4', 'PDF', 4, 100, 'C004'),
+('D005', 'Doc5', 'DOCX', 5, 10, 'C005');    
 
 -- Thêm dữ liệu vào bảng Report
 INSERT INTO SystemService.Report (Title, CreatedAt, TotalPrintingError, TotalPrintingSuccess, TotalPagesConsumed)
