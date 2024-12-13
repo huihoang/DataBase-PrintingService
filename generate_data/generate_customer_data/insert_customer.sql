@@ -1,5 +1,5 @@
 -- Thêm dữ liệu vào bảng Customer
-
+--hehe
 INSERT INTO InfoUser.Customer (Id, PhoneNumber, Email, Password, LastLogin, FamilyName, GivenName, Role, StudentCode, CurrentPage)
 VALUES 
 ('C006', '0124000006', 'customer6@example.com', 'password123', '2024-10-06', 'Nguyen', 'Customer6', 'Customer', 'ST006', 0),
