@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\generate_customer_data",
+    "\\generate_purchaselog_data",
+    "\\printService-purchaseLog"
+  ],
+  "SelectedNode": "\\printService-purchaseLog\\views.sql",
+  "PreviewInSolutionExplorer": false
+}

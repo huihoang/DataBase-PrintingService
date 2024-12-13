@@ -131,9 +131,10 @@ CREATE TABLE PrintService.PrintServiceLog (
 -- Tạo bảng Document
 CREATE TABLE PrintService.Document (
     Id VARCHAR(50),
+    CreatedAt DATETIME DEFAULT GETDATE(),
     FileName VARCHAR(255),
     FileType VARCHAR(50),
-    PrintLogId INT,
+    PrintLogId INT NULL,
     CustomerId VARCHAR(50),
     CONSTRAINT PK_Document_Id PRIMARY KEY (Id),
     CONSTRAINT FK_Document_PrintServiceLogId FOREIGN KEY (PrintLogId) REFERENCES PrintService.PrintServiceLog(Id),
