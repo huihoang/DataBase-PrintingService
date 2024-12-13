@@ -2,7 +2,7 @@
 USE PrintingServices;
 GO
 
-CREATE OR ALTER FUNCTION InfoPrinter.GetPrinterCountByLocation (@LocationId INT)
+CREATE OR ALTER FUNCTION InfoPrinter.fnGetPrinterCountByLocation (@LocationId INT)
 RETURNS INT
 AS
 BEGIN

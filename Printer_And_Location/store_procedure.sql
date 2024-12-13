@@ -13,7 +13,7 @@ GO
 ---------------------------------------------------------------------------
 
 -- 1. CREATE: Thêm một máy in mới vào bảng Printer
-CREATE OR ALTER PROCEDURE InfoPrinter.AddPrinter
+CREATE OR ALTER PROCEDURE InfoPrinter.spAddPrinter
     @BrandName VARCHAR(100),
     @Status NVARCHAR(50),
     @LocationId INT
@@ -25,7 +25,7 @@ END;
 GO
 
 -- 2. READ: Lấy danh sách tất cả các máy in
-CREATE OR ALTER PROCEDURE InfoPrinter.GetAllPrinters
+CREATE OR ALTER PROCEDURE InfoPrinter.spGetAllPrinters
 AS
 BEGIN
     SELECT * FROM InfoPrinter.Printer;
@@ -33,7 +33,7 @@ END;
 GO
 
 -- 3. READ: Lấy thông tin máy in theo ID
-CREATE OR ALTER PROCEDURE InfoPrinter.GetPrinterById
+CREATE OR ALTER PROCEDURE InfoPrinter.spGetPrinterById
     @Id INT
 AS
 BEGIN
@@ -44,7 +44,7 @@ END;
 GO
 
 -- 4. UPDATE: Cập nhật thông tin máy in
-CREATE OR ALTER PROCEDURE InfoPrinter.UpdatePrinter
+CREATE OR ALTER PROCEDURE InfoPrinter.spUpdatePrinter
     @Id INT,
     @BrandName VARCHAR(100),
     @Status NVARCHAR(50),
@@ -60,7 +60,7 @@ END;
 GO
 
 -- 5. DELETE: Xóa một máy in theo ID
-CREATE OR ALTER PROCEDURE InfoPrinter.DeletePrinter
+CREATE OR ALTER PROCEDURE InfoPrinter.spDeletePrinter
     @Id INT
 AS
 BEGIN
@@ -70,7 +70,7 @@ END;
 GO
 
 -- 6. UPDATE: Cập nhật trạng thái của máy in (Active/Inactive)
-CREATE OR ALTER PROCEDURE InfoPrinter.UpdatePrinterStatus
+CREATE OR ALTER PROCEDURE InfoPrinter.spUpdatePrinterStatus
     @Id INT,
     @Status NVARCHAR(50)
 AS
@@ -82,7 +82,7 @@ END;
 GO
 
 -- 7. READ: Lấy danh sách máy in theo trạng thái (Active/Inactive)
-CREATE OR ALTER PROCEDURE InfoPrinter.GetPrintersByStatus
+CREATE OR ALTER PROCEDURE InfoPrinter.spGetPrintersByStatus
     @Status NVARCHAR(50)
 AS
 BEGIN
@@ -100,7 +100,7 @@ GO
 ---------------------------------------------------------------------------
 
 -- 1. CREATE: Thêm một địa điểm máy in mới
-CREATE OR ALTER PROCEDURE InfoPrinter.AddPrinterLocation
+CREATE OR ALTER PROCEDURE InfoPrinter.spAddPrinterLocation
     @RoomName VARCHAR(100),
     @BuildingName VARCHAR(100),
     @CampusName VARCHAR(100)
@@ -112,7 +112,7 @@ END;
 GO
 
 -- 2. READ: Lấy danh sách tất cả các địa điểm máy in
-CREATE OR ALTER PROCEDURE InfoPrinter.GetAllPrinterLocations
+CREATE OR ALTER PROCEDURE InfoPrinter.spGetAllPrinterLocations
 AS
 BEGIN
     SELECT * FROM InfoPrinter.PrinterLocation;
@@ -120,7 +120,7 @@ END;
 GO
 
 -- 3. READ: Lấy thông tin địa điểm máy in theo ID
-CREATE OR ALTER PROCEDURE InfoPrinter.GetPrinterLocationById
+CREATE OR ALTER PROCEDURE InfoPrinter.spGetPrinterLocationById
     @Id INT
 AS
 BEGIN
@@ -131,7 +131,7 @@ END;
 GO
 
 -- 4. UPDATE: Cập nhật thông tin địa điểm máy in
-CREATE OR ALTER PROCEDURE InfoPrinter.UpdatePrinterLocation
+CREATE OR ALTER PROCEDURE InfoPrinter.spUpdatePrinterLocation
     @Id INT,
     @RoomName VARCHAR(100),
     @BuildingName VARCHAR(100),
@@ -147,7 +147,7 @@ END;
 GO
 
 -- 5. DELETE: Xóa một địa điểm máy in theo ID
-CREATE OR ALTER PROCEDURE InfoPrinter.DeletePrinterLocation
+CREATE OR ALTER PROCEDURE InfoPrinter.spDeletePrinterLocation
     @Id INT
 AS
 BEGIN
@@ -157,7 +157,7 @@ END;
 GO
 
 -- 6. READ: Lấy danh sách các địa điểm máy in theo Campus
-CREATE OR ALTER PROCEDURE InfoPrinter.GetPrinterLocationsByCampus
+CREATE OR ALTER PROCEDURE InfoPrinter.spGetPrinterLocationsByCampus
     @CampusName VARCHAR(100)
 AS
 BEGIN
@@ -167,7 +167,7 @@ END;
 GO
 
 -- 7. UPDATE: Cập nhật tên tòa nhà (BuildingName) của một địa điểm máy in
-CREATE OR ALTER PROCEDURE InfoPrinter.UpdateBuildingName
+CREATE OR ALTER PROCEDURE InfoPrinter.spUpdateBuildingName
     @Id INT,
     @NewBuildingName VARCHAR(100)
 AS
