@@ -4,7 +4,7 @@ GO
 
 
 -- tạo hàm filter report xem 1 tháng cụ thể
-CREATE OR ALTER FUNCTION SystemService.FilterReportByMonth
+CREATE OR ALTER FUNCTION SystemService.fnFilterReportByMonth
 (
     @MonthYear VARCHAR(7)
 )
@@ -19,12 +19,12 @@ RETURN
 GO
 
 -- sử dụng hàm filter report xem 1 tháng cụ thể
-SELECT * FROM  SystemService.FilterReportByMonth('12/2024');
-DROP FUNCTION SystemService.FilterReportByMonth;
+SELECT * FROM  SystemService.fnFilterReportByMonth('12/2024');
+DROP FUNCTION SystemService.fnFilterReportByMonth;
 GO
 
 -- tạo hàm filter report xem 1 tháng cụ thể
-CREATE OR ALTER FUNCTION SystemService.FilterReportByYear
+CREATE OR ALTER FUNCTION SystemService.fnFilterReportByYear
 (
     @MonthYear VARCHAR(7)
 )
@@ -39,8 +39,8 @@ RETURN
 GO
 
 -- sử dụng hàm filter report xem 1 năm cụ thể
-SELECT * FROM  SystemService.FilterReportByYear('2024');
-DROP FUNCTION SystemService.FilterReportByYear;
+SELECT * FROM  SystemService.fnFilterReportByYear('2024');
+DROP FUNCTION SystemService.fnFilterReportByYear;
 GO
 
 

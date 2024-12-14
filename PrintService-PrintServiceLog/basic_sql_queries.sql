@@ -4,12 +4,12 @@ GO
 
 
 -- Xem tat ca lich su in cua tat ca khach hang
-SELECT * FROM PrintService.GetAllPrintingLog;
+SELECT * FROM PrintService.vwGetAllPrintingLog;
 
 
-SELECT * FROM PrintService.GetOnePrintingLogById('C005');
+SELECT * FROM PrintService.fnGetOnePrintingLogById('C005');
 
-SELECT * FROM PrintService.FilterPrintingLog('', '', 'customer3');
+SELECT * FROM PrintService.fnFilterPrintingLog('', '', 'customer3');
 
 
 SELECT * FROM PrintService.Document;

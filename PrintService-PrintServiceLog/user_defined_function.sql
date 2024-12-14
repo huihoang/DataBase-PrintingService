@@ -4,7 +4,7 @@ GO
 
 
 -- Tạo hàm trả về tất cả lịch sử in của 1 khách hàng bằng ID
-CREATE OR ALTER FUNCTION PrintService.GetOnePrintingLogById (
+CREATE OR ALTER FUNCTION PrintService.fnGetOnePrintingLogById (
 	@CutomerId VARCHAR(50)
 	)
 RETURNS @return TABLE (
@@ -43,12 +43,12 @@ END;
 GO
 
 -- sử dụng hàm get lịch sử in của 1 khách hàng băng ID
-EXECUTE PrintService.GetOnePrintingLogById 'C005';
-DROP FUNCTION  PrintService.GetOnePrintingLogById;
+EXECUTE PrintService.fnGetOnePrintingLogById 'C005';
+DROP FUNCTION  PrintService.fnGetOnePrintingLogById;
 GO
 
 -- Tạo hàm trả về lịch sử in của 1 sinh viên bằng Tên, Mail, StudentCode
-CREATE OR ALTER FUNCTION PrintService.FilterPrintingLog (
+CREATE OR ALTER FUNCTION PrintService.fnFilterPrintingLog (
 	@CutomerName VARCHAR(100),
 	@StudentCode VARCHAR(50),    
 	@Email VARCHAR(255)
@@ -92,10 +92,10 @@ END;
 GO	
 
 -- sử dụng hàm get lịch sử in của 1 sinh viên bằng Tên hoặc Mail hoặc StudentCode
-EXECUTE PrintService.FilterPrintingLog 'customer3', '', '';
-EXECUTE PrintService.FilterPrintingLog '', 'nguyen', '';
-EXECUTE PrintService.FilterPrintingLog '', '', 'ST005';
-DROP FUNCTION  PrintService.FilterPrintingLog;
+EXECUTE PrintService.fnFilterPrintingLog 'customer3', '', '';
+EXECUTE PrintService.fnFilterPrintingLog '', 'nguyen', '';
+EXECUTE PrintService.fnFilterPrintingLog '', '', 'ST005';
+DROP FUNCTION  PrintService.fnFilterPrintingLog;
 GO
 
 

@@ -4,7 +4,7 @@ GO
 
 
 -- Tạo record mới cho DefaultConfig
-CREATE OR ALTER PROCEDURE SystemService.CreateDefaultConfig (
+CREATE OR ALTER PROCEDURE SystemService.spCreateDefaultConfig (
 	@Id VARCHAR(50),
     @DfPage INT,
     @DfGivenDate DATE,
@@ -26,7 +26,7 @@ BEGIN
         RETURN;
     END;    
     --spsoId không tồn tại
-    IF NOT EXISTS (SELECT * FROM SystemService.ServiceProviderServiceOffice WHERE Id = @SPSOId)
+    IF NOT EXISTS (SELECT * FROM SystemService.SPSO WHERE Id = @SPSOId)
     BEGIN
         RAISERROR ('SPSOId does not exist', 16, 1);
         RETURN;
@@ -43,7 +43,7 @@ DROP PROCEDURE SystemService.CreateDefaultConfig;
 GO
 
 -- Update for DefaultConfig id lớn nhất (record mới nhất)
-CREATE OR ALTER PROCEDURE SystemService.UpdateDefaultConfig (
+CREATE OR ALTER PROCEDURE SystemService.spUpdateDefaultConfig (
     @DfPage INT,
     @DfGivenDate DATE,
     @FileTypes VARCHAR(100),
@@ -64,7 +64,7 @@ BEGIN
         RETURN;
     END;    
     --spsoId không tồn tại
-    IF NOT EXISTS (SELECT * FROM SystemService.ServiceProviderServiceOffice WHERE Id = @SPSOId)
+    IF NOT EXISTS (SELECT * FROM SystemService.SPSO WHERE Id = @SPSOId)
     BEGIN
         RAISERROR ('SPSOId does not exist', 16, 1);
         RETURN;
@@ -79,8 +79,8 @@ BEGIN
 END;
 
 -- thực ti ví dụ Update
-EXECUTE SystemService.UpdateDefaultConfig 47, '2024-05-17', 'PDF, DOCX','S001';
-DROP PROCEDURE SystemService.UpdateDefaultConfig;
+EXECUTE SystemService.spUpdateDefaultConfig 47, '2024-05-17', 'PDF, DOCX','S001';
+DROP PROCEDURE SystemService.spUpdateDefaultConfig;
 GO
 
 

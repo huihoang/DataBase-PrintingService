@@ -4,14 +4,14 @@ GO
 
 
 -- Tạo view cho Report
-CREATE OR ALTER VIEW SystemService.GetAllReport 
+CREATE OR ALTER VIEW SystemService.vwGetAllReport 
 AS
 SELECT * FROM SystemService.Report;
 GO
 
 -- Sử dụng view GetAllReport
-SELECT * FROM SystemService.GetAllReport;
-DROP VIEW SystemService.GetAllReport;
+SELECT * FROM SystemService.vwGetAllReport;
+DROP VIEW SystemService.vwGetAllReport;
 GO
 
 

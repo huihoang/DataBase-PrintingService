@@ -4,13 +4,13 @@ GO
 
 
 -- Tạo view DefaultConfig
-CREATE VIEW SystemService.GetAllDefaultConfig
+CREATE VIEW SystemService.vwGetAllDefaultConfig
 AS
-SELECT * FROM SystemService.DefaultConfiguration;
+SELECT * FROM SystemService.vwDefaultConfiguration;
 GO
 
 -- Xoá view DefaultConfig
-DROP VIEW SystemService.GetAllDefaultConfig;
+DROP VIEW SystemService.vwGetAllDefaultConfig;
 GO
 
 

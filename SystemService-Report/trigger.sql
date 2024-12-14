@@ -7,7 +7,7 @@ GO
 -- CREATE OR ALTER PROCEDURE SystemService.CreateReport
 
 -- Chặn insert report, chỉ cho sql-server agent insert
-CREATE OR ALTER TRIGGER SystemService.DenyInsertReport
+CREATE OR ALTER TRIGGER SystemService.trDenyInsertReport
 ON SystemService.Report
 INSTEAD OF INSERT
 AS 
@@ -54,11 +54,11 @@ BEGIN
 END;
 GO
 
-DROP TRIGGER SystemService.DenyInsertReport;
+DROP TRIGGER SystemService.trDenyInsertReport;
 GO
 
 -- Chặn delete, update report
-CREATE OR ALTER TRIGGER SystemService.DenyDelAndUpdateReport
+CREATE OR ALTER TRIGGER SystemService.trDenyDelAndUpdateReport
 ON SystemService.Report
 INSTEAD OF DELETE, UPDATE
 AS 
@@ -70,7 +70,7 @@ BEGIN
 END;
 GO
 
-DROP TRIGGER SystemService.DenyDelAndUpdateReport;
+DROP TRIGGER SystemService.trDenyDelAndUpdateReport;
 GO
 
 

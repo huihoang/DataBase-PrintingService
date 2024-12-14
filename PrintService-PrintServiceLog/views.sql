@@ -4,12 +4,12 @@ GO
 
 
 -- Tao view PrintingLog
-CREATE VIEW PrintService.GetAllPrintingLog 
+CREATE VIEW PrintService.vwGetAllPrintingLog 
 AS
 SELECT * FROM PrintService.PrintServiceLog;
 GO
 
-DROP VIEW PrintService.GetAllPrintingLog;
+DROP VIEW PrintService.vwGetAllPrintingLog;
 GO
 
 
