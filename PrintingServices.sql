@@ -74,7 +74,7 @@ CREATE TABLE SystemService.DefaultConfiguration (
     Id VARCHAR(50),
     DefaultPage INT,
     DefaultGivenDate DATE,
-    PermittedFileTypes VARCHAR(100),
+	PermittedFileTypes VARCHAR(100),
     CreatedAt DATE DEFAULT GETDATE(),
     SPSOId VARCHAR(50),
     CONSTRAINT PK_DefaultConfiguration_Id PRIMARY KEY (Id),
@@ -106,10 +106,12 @@ CREATE TABLE InfoPrinter.PrinterLocation (
 CREATE TABLE InfoPrinter.Printer (
     Id INT IDENTITY,
     BrandName VARCHAR(100),
-    Status NVARCHAR(50) CHECK (Status IN ('Active', 'Inactive')),
+    Status NVARCHAR(50) CHECK (Status IN ('Active', 'Inactive', 'Moved')),
     LocationId INT,
     CONSTRAINT PK_Printer_Id PRIMARY KEY (Id),
-    CONSTRAINT FK_Printer_PrinterLocationId FOREIGN KEY (LocationId) REFERENCES InfoPrinter.PrinterLocation(Id)
+    CONSTRAINT FK_Printer_PrinterLocationId FOREIGN KEY (LocationId) 
+		REFERENCES InfoPrinter.PrinterLocation(Id)
+		ON DELETE CASCADE
 );
 
 -- Tạo bảng PrintServiceLog
@@ -125,7 +127,9 @@ CREATE TABLE PrintService.PrintServiceLog (
     PrinterId INT,
     CONSTRAINT PK_PrintServiceLog_Id PRIMARY KEY (Id),
     CONSTRAINT FK_PrintServiceLog_CustomerId FOREIGN KEY (CustomerId) REFERENCES InfoUser.Customer(Id),
-    CONSTRAINT FK_PrintServiceLog_PrinterId FOREIGN KEY (PrinterId) REFERENCES InfoPrinter.Printer(Id)
+    CONSTRAINT FK_PrintServiceLog_PrinterId FOREIGN KEY (PrinterId) 
+		REFERENCES InfoPrinter.Printer(Id)
+        ON DELETE CASCADE
 );
 
 -- Tạo bảng Document
@@ -134,11 +138,13 @@ CREATE TABLE PrintService.Document (
     CreatedAt DATETIME DEFAULT GETDATE(),
     FileName VARCHAR(255),
     FileType VARCHAR(50),
-    PrintLogId INT NULL,
+    PrintLogId INT,
     NumOfPage INT,
     CustomerId VARCHAR(50),
     CONSTRAINT PK_Document_Id PRIMARY KEY (Id),
-    CONSTRAINT FK_Document_PrintServiceLogId FOREIGN KEY (PrintLogId) REFERENCES PrintService.PrintServiceLog(Id),
+    CONSTRAINT FK_Document_PrintServiceLogId FOREIGN KEY (PrintLogId) 
+		REFERENCES PrintService.PrintServiceLog(Id)
+        ON DELETE CASCADE,
     CONSTRAINT FK_Document_CustomerId FOREIGN KEY (CustomerId) REFERENCES InfoUser.Customer(Id)
 );
 
@@ -233,16 +239,16 @@ VALUES
 ('D002', 'Doc2', 'DOCX', 2, 30, 'C002'),
 ('D003', 'Doc3', 'JPG', 3, 40, 'C003'),
 ('D004', 'Doc4', 'PDF', 4, 100, 'C004'),
-('D005', 'Doc5', 'DOCX', 5, 10, 'C005');    
+('D005', 'Doc5', 'DOCX', 5, 10, 'C005');
 
--- Thêm dữ liệu vào bảng Report
+-- Thêm dữ liệu vào bảng Report - các lần sau sẽ là tự tổng hợp báo cáo tự tạo record
 INSERT INTO SystemService.Report (Title, CreatedAt, TotalPrintingError, TotalPrintingSuccess, TotalPagesConsumed)
 VALUES 
-('Monthly Report - January', '2024-01-31', 2, 30, 500),
-('Monthly Report - February', '2024-02-28', 1, 25, 400),
-('Monthly Report - March', '2024-03-31', 3, 35, 600),
-('Monthly Report - April', '2024-04-30', 0, 40, 700),
-('Monthly Report - May', '2024-05-31', 4, 20, 300);
+('Monthly Report - 1/2024', '2024-01-31', 2, 30, 500),
+('Monthly Report - 2/2024', '2024-02-28', 1, 25, 400),
+('Monthly Report - 3/2024', '2024-03-31', 3, 35, 600),
+('Monthly Report - 4/2022', '2022-04-30', 0, 40, 700),
+('Monthly Report - 5/2023', '2023-05-31', 4, 20, 300);
 GO
 
 
