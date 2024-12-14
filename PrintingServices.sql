@@ -114,10 +114,12 @@ CREATE TABLE InfoPrinter.PrinterLocation (
 CREATE TABLE InfoPrinter.Printer (
     Id INT IDENTITY,
     BrandName VARCHAR(100),
-    Status NVARCHAR(50) CHECK (Status IN ('Active', 'Inactive')),
+    Status NVARCHAR(50) CHECK (Status IN ('Active', 'Inactive', 'Moved')),
     LocationId INT,
     CONSTRAINT PK_Printer_Id PRIMARY KEY (Id),
-    CONSTRAINT FK_Printer_PrinterLocationId FOREIGN KEY (LocationId) REFERENCES InfoPrinter.PrinterLocation(Id)
+    CONSTRAINT FK_Printer_PrinterLocationId FOREIGN KEY (LocationId) 
+		REFERENCES InfoPrinter.PrinterLocation(Id)
+		ON DELETE CASCADE
 );
 
 -- Tạo bảng PrintServiceLog
@@ -133,7 +135,9 @@ CREATE TABLE PrintService.PrintServiceLog (
     PrinterId INT,
     CONSTRAINT PK_PrintServiceLog_Id PRIMARY KEY (Id),
     CONSTRAINT FK_PrintServiceLog_CustomerId FOREIGN KEY (CustomerId) REFERENCES InfoUser.Customer(Id),
-    CONSTRAINT FK_PrintServiceLog_PrinterId FOREIGN KEY (PrinterId) REFERENCES InfoPrinter.Printer(Id)
+    CONSTRAINT FK_PrintServiceLog_PrinterId FOREIGN KEY (PrinterId) 
+		REFERENCES InfoPrinter.Printer(Id)
+        ON DELETE CASCADE
 );
 
 -- Tạo bảng Document
@@ -142,10 +146,12 @@ CREATE TABLE PrintService.Document (
     FileName VARCHAR(255),
     FileType VARCHAR(50),
     PrintLogId INT,
-	NumOfPage INT,
+    NumOfPage INT,
     CustomerId VARCHAR(50),
     CONSTRAINT PK_Document_Id PRIMARY KEY (Id),
-    CONSTRAINT FK_Document_PrintServiceLogId FOREIGN KEY (PrintLogId) REFERENCES PrintService.PrintServiceLog(Id),
+    CONSTRAINT FK_Document_PrintServiceLogId FOREIGN KEY (PrintLogId) 
+		REFERENCES PrintService.PrintServiceLog(Id)
+        ON DELETE CASCADE,
     CONSTRAINT FK_Document_CustomerId FOREIGN KEY (CustomerId) REFERENCES InfoUser.Customer(Id)
 );
 
