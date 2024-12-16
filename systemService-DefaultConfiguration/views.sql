@@ -4,9 +4,9 @@ GO
 
 
 -- Tạo view DefaultConfig
-CREATE VIEW SystemService.vwGetAllDefaultConfig
+CREATE OR ALTER VIEW SystemService.vwGetAllDefaultConfig
 AS
-SELECT * FROM SystemService.vwDefaultConfiguration;
+SELECT * FROM SystemService.DefaultConfiguration;
 GO
 
 -- Xoá view DefaultConfig

@@ -12,7 +12,7 @@ ORDER BY ABS(DATEDIFF(DAY, DefaultGivenDate, GETDATE()));
 SELECT * FROM SystemService.vwGetAllDefaultConfig;
 
 -- insert new default config
-INSERT INTO SystemService.DefaultConfiguration (Id, DefaultPage, DefaultGivenDate, PermittedFileTypes, CreatedAt, SPSOId);
+INSERT INTO SystemService.DefaultConfiguration (Id, DefaultPage, DefaultGivenDate, PermittedFileTypes, CreatedAt, SPSOId)
 VALUES ('DC007', 447, '2024-05-17', 'PDF, DOCX', GETDATE(), 'S001');
 
 -- update default config

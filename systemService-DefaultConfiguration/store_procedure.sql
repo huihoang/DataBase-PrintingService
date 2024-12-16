@@ -26,7 +26,7 @@ BEGIN
         RETURN;
     END;    
     --spsoId không tồn tại
-    IF NOT EXISTS (SELECT * FROM SystemService.SPSO WHERE Id = @SPSOId)
+    IF NOT EXISTS (SELECT * FROM InfoUser.SPSO WHERE Id = @SPSOId)
     BEGIN
         RAISERROR ('SPSOId does not exist', 16, 1);
         RETURN;
@@ -64,22 +64,21 @@ BEGIN
         RETURN;
     END;    
     --spsoId không tồn tại
-    IF NOT EXISTS (SELECT * FROM SystemService.SPSO WHERE Id = @SPSOId)
+    IF NOT EXISTS (SELECT * FROM InfoUser.SPSO WHERE Id = @SPSOId)
     BEGIN
         RAISERROR ('SPSOId does not exist', 16, 1);
         RETURN;
     END;
 
+    DECLARE @Id VARCHAR(50);
+    SELECT TOP 1 @Id = Id FROM SystemService.DefaultConfiguration ORDER BY CreatedAt DESC;
     UPDATE SystemService.DefaultConfiguration
-    SET DefaultPage = @DfPage,
-        DefaultGivenDate = @DfGivenDate,
-        PermittedFileTypes = @FileTypes,
-        SPSOId = @SPSOId
-    WHERE Id = @Id AND CreatedAt = (SELECT MAX(CreatedAt) FROM SystemService.DefaultConfiguration WHERE Id = @Id);
+    SET DefaultPage = @DfPage, DefaultGivenDate = @DfGivenDate, PermittedFileTypes = @FileTypes, SPSOId = @SPSOId
+    WHERE Id = @Id;
 END;
 
 -- thực ti ví dụ Update
-EXECUTE SystemService.spUpdateDefaultConfig 47, '2024-05-17', 'PDF, DOCX','S001';
+EXECUTE SystemService.spUpdateDefaultConfig 47, '2025-05-17', 'PDF, DOCX','S001';
 DROP PROCEDURE SystemService.spUpdateDefaultConfig;
 GO
 
