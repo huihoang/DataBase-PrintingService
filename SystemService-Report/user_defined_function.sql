@@ -23,7 +23,7 @@ SELECT * FROM  SystemService.fnFilterReportByMonth('12/2024');
 DROP FUNCTION SystemService.fnFilterReportByMonth;
 GO
 
--- tạo hàm filter report xem 1 tháng cụ thể
+-- tạo hàm filter report xem 1 năm cụ thể
 CREATE OR ALTER FUNCTION SystemService.fnFilterReportByYear
 (
     @MonthYear VARCHAR(7)
